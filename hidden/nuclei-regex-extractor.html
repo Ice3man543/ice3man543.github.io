@@ -39,18 +39,21 @@
       RegExp.escape = function (string) {
         return string.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
       };
-      document
-        .querySelector("textarea")
-        .addEventListener("mouseup", function () {
-          mySelection = this.value.substring(
+      var changeEvent = function(event) {
+        const placeholder = "1hb3IN3x8B1i4qpxOA3HSy8VixA";
+        mySelection = this.value.substring(
             this.selectionStart,
             this.selectionEnd
           );
           data = this.value.substring(this.selectionStart-32, this.selectionEnd+16);
-         
+        
           var resultNode = document.getElementById("result");
-          resultNode.value = data.replace(mySelection, "(.*)");
-        });
+          replaced = data.replace(mySelection, placeholder);
+          resultNode.value = RegExp.escape(replaced).replace(placeholder, "(.*)");
+      };
+      textarea = document.querySelector("textarea")
+      textarea.addEventListener("mouseup", changeEvent);
+      textarea.addEventListener("keydown", changeEvent);
     </script>
   </body>
 </html>
