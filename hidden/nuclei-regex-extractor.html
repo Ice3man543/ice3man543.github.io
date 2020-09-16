@@ -1,13 +1,44 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <style></style>
+    <style>
+      body {
+          background-image: url("https://www.publicdomainpictures.net/pictures/20000/velka/jellyfish-background-871299518276q0p.jpg");
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        width: 100vw;
+      }
+      textarea {
+        border: 0;
+        background-color: #bfbfbf;
+        height: 400px;
+        width: 700px;
+        margin-bottom: 30px;
+      }
+      input {
+        border: 0;
+        background-color: #bfbfbf;
+        width: 400px;
+      }
+    </style>
   </head>
   <body>
-<textarea>
-  Input your text
-</textarea>
+    <div class="container">
+      <textarea>
+        Input your text
+    </textarea
+      >
+      <input id="result" type="text" />
+    </div>
     <script type="text/javascript">
+      RegExp.escape = function (string) {
+        return string.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+      };
       document
         .querySelector("textarea")
         .addEventListener("mouseup", function () {
@@ -15,8 +46,16 @@
             this.selectionStart,
             this.selectionEnd
           );
-          matched = this.value.match(new RegExp(`.{0,16}${mySelection}.{0,16}`, 'gi'));
-          console.log(matched[0].replace(mySelection, "(.*)"));
+          matched = this.value.match(
+            new RegExp(`.{0,32}${RegExp.escape(mySelection)}.{0,16}`, "gi")
+          );
+
+          var resultNode = document.getElementById("result");
+          matched.forEach((element) => {
+            if (element.includes(mySelection)) {
+              resultNode.value = element.replace(mySelection, "(.*)");
+            }
+          });
         });
     </script>
   </body>
