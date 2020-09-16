@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style></style>
+  </head>
+  <body>
+<textarea>
+  Input your text
+</textarea>
+    <script type="text/javascript">
+      document
+        .querySelector("textarea")
+        .addEventListener("mouseup", function () {
+          window.mySelection = this.value.substring(
+            this.selectionStart,
+            this.selectionEnd
+          );
+          matched = this.value.match(new RegExp(`.{0,16}${mySelection}.{0,16}`, 'gi'));
+          console.log(matched[0].replace(mySelection, "(.*)"));
+        });
+    </script>
+  </body>
+</html>
