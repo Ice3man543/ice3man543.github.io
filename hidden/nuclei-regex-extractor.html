@@ -42,20 +42,14 @@
       document
         .querySelector("textarea")
         .addEventListener("mouseup", function () {
-          window.mySelection = this.value.substring(
+          mySelection = this.value.substring(
             this.selectionStart,
             this.selectionEnd
           );
-          matched = this.value.match(
-            new RegExp(`.{0,32}${RegExp.escape(mySelection)}.{0,16}`, "gi")
-          );
-
+          data = this.value.substring(this.selectionStart-32, this.selectionEnd+16);
+         
           var resultNode = document.getElementById("result");
-          matched.forEach((element) => {
-            if (element.includes(mySelection)) {
-              resultNode.value = element.replace(mySelection, "(.*)");
-            }
-          });
+          resultNode.value = data.replace(mySelection, "(.*)");
         });
     </script>
   </body>
