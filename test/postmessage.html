@@ -1,0 +1,9 @@
+<html>
+    <body></body>
+    <script>
+function displayMessage (evt) {
+  console.log("I got " + evt.data + " from " + evt.origin);
+}
+	window.addEventListener("message", displayMessage, false);
+    </script>
+</html>
